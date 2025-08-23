@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Battleship</title>
+    <link rel="stylesheet" href="{% static 'battleships/styles.css' %}">
+</head>
+<body>
+    <div class="title_container">
+        <h4>Player</h4>
+        <h4>Opponent</h4>
+    </div>
+
+    <div class="both_board_container">
+        <div class="board_container">
+            {% for row in board1 %}
+                {% for box in row %}
+                    <button class="player_board" data-y="{{ forloop.parentloop.counter0 }}" data-x="{{ forloop.counter0 }}">
+                        {% if box.ship and box.hit %} 
+                        # 
+                        {% elif box.ship %} 
+                        O 
+                        {% elif box.hit %} 
+                        <div style="color: red"> # </div> 
+                        {% elif box.miss %} 
+                        X 
+                        {% else %} 
+                         
+                        {% endif %}
+                    </button>
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="board_container">
+            {% for row in board2 %}
+                {% for box in row %}
+                    <button class="opp_button" data-y="{{ forloop.parentloop.counter0 }}" data-x="{{ forloop.counter0 }}">
+                        {% if box.hit %} 
+                        <div style="color: red"> # </div> 
+                        {% elif box.miss %} 
+                        X 
+                        {% else %} 
+                        {% endif %}
+                    </button>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{% static 'battleships/game.js' %}"></script>
+</body>
+</html>
